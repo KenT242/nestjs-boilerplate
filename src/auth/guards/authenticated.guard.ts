@@ -1,6 +1,5 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { GqlContextType, GqlExecutionContext } from '@nestjs/graphql';
 import type { Request } from 'express';
 
 @Injectable()
@@ -19,11 +18,6 @@ export class AuthenticatedGuard implements CanActivate {
   }
 
   public getRequest(context: ExecutionContext): Request {
-    if (context.getType<GqlContextType>() === 'graphql') {
-      const ctx = GqlExecutionContext.create(context).getContext<{ req: Request }>();
-      return ctx.req;
-    }
-
     return context.switchToHttp().getRequest<Request>();
   }
 }

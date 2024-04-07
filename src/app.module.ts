@@ -9,7 +9,6 @@ import { AuthModule } from './auth';
 import { BaseModule } from './base';
 import { CommonModule, ExceptionsFilter, TransformResponseInterceptor } from './common';
 import { configuration, loggerOptions } from './config';
-import { GqlModule } from './gql';
 import { V1Module } from './v1/v1.module';
 
 @Module({
@@ -42,7 +41,6 @@ import { V1Module } from './v1/v1.module';
     AuthModule, // Global for Middleware
     CommonModule, // Global
     BaseModule,
-    GqlModule,
     V1Module,
     // Module Router
     // https://docs.nestjs.com/recipes/router-module
