@@ -1,0 +1,32 @@
+version: '3.8'
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: beramarket
+      POSTGRES_PASSWORD: beramarket
+      POSTGRES_DB: postgres
+    volumes:
+      - ../db:/var/lib/postgresql/data
+    ports:
+      - 54321:5432
+    networks:
+      - mynetwork
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    restart: always
+    ports:
+      - 5050:5050
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:

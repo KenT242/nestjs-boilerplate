@@ -24,7 +24,7 @@ import { AuthService } from '../providers';
 @Controller()
 export class AuthController {
   constructor(
-    private auth: AuthService,
+    private authService: AuthService,
     private we3bSignature: Web3SignatureService,
   ) {}
 
@@ -61,11 +61,11 @@ export class AuthController {
     }
 
     // NOTE: get user by address
-    let user = await this.auth.findUserByAddress(_.get(verifiedPayload, 'address', ''));
+    let user = await this.authService.findUserByAddress(_.get(verifiedPayload, 'address', ''));
 
     if (_.isNil(user)) {
       // NOTE: create user if not exist
-      user = await this.auth.createUser({
+      user = await this.authService.createUser({
         ...payload,
         address: _.toLower(_.get(verifiedPayload, 'address', '')), // NOTE: all address should be lowercase,
       });
@@ -73,7 +73,7 @@ export class AuthController {
 
     return {
       message: 'Login success',
-      data: this.auth.jwtSign({
+      data: this.authService.jwtSign({
         address: _.get(verifiedPayload, 'address', ''),
         userId: _.toString(_.get(user, 'id', '')), // NOTE: This is a test value.
       }),
