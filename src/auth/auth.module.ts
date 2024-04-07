@@ -3,14 +3,11 @@ import { ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 
 import { AuthSerializer } from './auth.serializer';
-import { AuthService } from './auth.service';
-import { LocalStrategy, JwtStrategy, JwtVerifyStrategy } from './strategies';
-import { UserModule } from '../shared/user';
+import { JwtStrategy, JwtVerifyStrategy } from './strategies';
 
 @Global()
 @Module({
   imports: [
-    UserModule,
     JwtModule.registerAsync({
       useFactory: (config: ConfigService) => ({
         secret: config.get('jwtSecret'),
@@ -19,7 +16,6 @@ import { UserModule } from '../shared/user';
       inject: [ConfigService],
     }),
   ],
-  providers: [AuthService, AuthSerializer, LocalStrategy, JwtStrategy, JwtVerifyStrategy],
-  exports: [AuthService],
+  providers: [AuthSerializer, JwtStrategy, JwtVerifyStrategy],
 })
 export class AuthModule {}

@@ -1,4 +1,4 @@
-import type { Payload } from '../src/auth';
+import type { IJwtSignPayload } from '../src/auth';
 
 export declare global {
   type AnyObject = Record<string, unknown>;
@@ -17,6 +17,8 @@ export declare global {
 
       JWT_SECRET: string;
       JWT_REFRESH_SECRET: string;
+
+      BERACHAIN_RPC: string;
     }
   }
 
@@ -26,6 +28,6 @@ export declare global {
       customProps: object;
     }
     // eslint-disable-next-line @typescript-eslint/no-empty-interface
-    interface User extends Payload {}
+    interface User extends IJwtSignPayload {}
   }
 }

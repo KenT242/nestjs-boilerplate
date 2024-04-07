@@ -9,9 +9,8 @@ import { AuthModule } from './auth';
 import { BaseModule } from './base';
 import { CommonModule, ExceptionsFilter, TransformResponseInterceptor } from './common';
 import { configuration, loggerOptions } from './config';
-import { SampleModule as DebugSampleModule } from './debug';
 import { GqlModule } from './gql';
-import { SampleModule } from './sample';
+import { V1Module } from './v1/v1.module';
 
 @Module({
   imports: [
@@ -43,20 +42,15 @@ import { SampleModule } from './sample';
     AuthModule, // Global for Middleware
     CommonModule, // Global
     BaseModule,
-    SampleModule,
     GqlModule,
-    DebugSampleModule,
+    V1Module,
     // Module Router
     // https://docs.nestjs.com/recipes/router-module
     RouterModule.register([
       {
-        path: 'test',
-        module: SampleModule,
-      },
-      {
-        path: 'test',
-        module: DebugSampleModule,
-      },
+        path: 'v1',
+        module: V1Module,
+      }
     ]),
   ],
   providers: [

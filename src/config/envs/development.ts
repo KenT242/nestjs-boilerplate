@@ -14,4 +14,6 @@ export const config = {
     autoLoadEntities: true,
   },
   foo: 'dev-bar',
+  jwtSecret: process.env.JWT_SECRET,
+  rpc: process.env.BERACHAIN_RPC,
 };

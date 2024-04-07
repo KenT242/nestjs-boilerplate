@@ -1,6 +1,6 @@
 import { Global, MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 
-import { LoggerContextMiddleware } from './middleware';
+// import { LoggerContextMiddleware } from './middleware';
 import * as providers from './providers';
 
 const services = Object.values(providers);
@@ -12,7 +12,7 @@ const services = Object.values(providers);
 })
 export class CommonModule implements NestModule {
   // Global Middleware
-  public configure(consumer: MiddlewareConsumer): void {
-    consumer.apply(LoggerContextMiddleware).forRoutes('*');
+  public configure(_: MiddlewareConsumer): void {
+    // consumer.apply(LoggerContextMiddleware).forRoutes('*');
   }
 }
