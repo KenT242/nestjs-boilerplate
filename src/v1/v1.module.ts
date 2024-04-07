@@ -1,8 +1,6 @@
 import { Module } from '@nestjs/common';
 // import { TypeOrmModule } from '@nestjs/typeorm';
 
-// import { Sampletable1 } from '#entity/sampledb1';
-// import { Sampletable2 } from '#entity/sampledb2';
 import { RouterModule } from '@nestjs/core';
 import { AuthModule } from './auth/auth.module';
 import { HealthModule } from './healthcheck/health.module';

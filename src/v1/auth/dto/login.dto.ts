@@ -1,4 +1,5 @@
-import { IsEthereumAddress, IsString } from 'class-validator';
+import { IsEnum, IsEthereumAddress, IsString } from 'class-validator';
+import { EChainName } from 'src/common/constants';
 
 /**
  * https://github.com/typestack/class-validator#validation-decorators
@@ -13,4 +14,8 @@ export class LoginDto {
 
   @IsString()
   public message!: string;
+
+  @IsString()
+  @IsEnum(EChainName)
+  public chainName!: string;
 }

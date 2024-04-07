@@ -7,9 +7,14 @@ import * as providers from './providers';
 import { Web3SignatureService } from 'src/common';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import * as tables from '#entity/beramarket';
 
 @Module({
   imports: [
+    TypeOrmModule.forFeature([
+      ...Object.values(tables)
+    ]),
     TerminusModule,
     HttpModule,
     JwtModule.registerAsync({

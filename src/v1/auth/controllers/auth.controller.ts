@@ -43,7 +43,7 @@ export class AuthController {
   }
 
   // NOTE: This is a test endpoint for signing a message.
-  @Post('message')
+  @Post('sign')
   public async testSignature(@Body() data: SignMessageDto): Promise<ApiResponse<{ signature: string }>> {
     const { message, privateKey } = data;
     const signature = this.we3bSignature.signMessage(message, privateKey);
@@ -54,16 +54,28 @@ export class AuthController {
   }
 
   @Post('login')
-  public async jwtLogin(@Body() user: LoginDto): Promise<ApiResponse<JwtSign>> {
-    const verifiedPayload = await this.we3bSignature.verifySignature(user);
+  public async jwtLogin(@Body() payload: LoginDto): Promise<ApiResponse<JwtSign>> {
+    const verifiedPayload = await this.we3bSignature.verifySignature(payload);
     if (_.isNil(verifiedPayload)) {
       throw new BadRequestException('Invalid signature');
     }
+
+    // NOTE: get user by address
+    let user = await this.auth.findUserByAddress(_.get(verifiedPayload, 'address', ''));
+
+    if (_.isNil(user)) {
+      // NOTE: create user if not exist
+      user = await this.auth.createUser({
+        ...payload,
+        address: _.toLower(_.get(verifiedPayload, 'address', '')), // NOTE: all address should be lowercase,
+      });
+    }
+
     return {
       message: 'Login success',
       data: this.auth.jwtSign({
         address: _.get(verifiedPayload, 'address', ''),
-        userId: _.get(verifiedPayload, 'address', ''), // NOTE: This is a test value.
+        userId: _.toString(_.get(user, 'id', '')), // NOTE: This is a test value.
       }),
     };
   }
@@ -76,5 +88,4 @@ export class AuthController {
       message: 'Authenticated',
     };
   }
-
 }
