@@ -12,8 +12,8 @@ export class UsersService {
     @InjectRepository(Users)
     private usersTable: Repository<Users>,
   ) {}
-  public async getUserById(userId: string): Promise<Users | null> {
-    return this.usersTable.findOneBy({ id: _.toNumber(userId) });
+  public async getUserByAddress(address: string): Promise<Users | null> {
+    return this.usersTable.findOneBy({ address: _.toLower(address) });
   }
 
   public async registryUsers(user: RegistryUsersDto): Promise<Users> {

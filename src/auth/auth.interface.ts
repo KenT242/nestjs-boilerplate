@@ -7,7 +7,6 @@ export interface JwtPayload {
   // sub: string;
   // username: string;
   // roles: string[];
-  userId: string;
   address: string;
 }
 
@@ -16,5 +15,4 @@ export interface Payload {
   // username: string;
   // roles: string[];
   address: string;
-  userId: string;
 }

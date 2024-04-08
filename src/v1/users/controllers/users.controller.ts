@@ -22,8 +22,8 @@ export class UsersController {
   @UseInterceptors(new SerializeInterceptor<UsersDto>(UsersDto))
   @Get('')
   public async get(@ReqUser() payload: Payload): Promise<ApiResponse<UsersDto | null>> {
-    const { userId } = payload;
-    const user = await this.userService.getUserById(userId);
+    const { address } = payload;
+    const user = await this.userService.getUserByAddress(address);
     return {
       data: user,
       message: 'User data retrieved successfully',

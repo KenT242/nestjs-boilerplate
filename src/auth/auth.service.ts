@@ -3,7 +3,6 @@ import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 
 import type { JwtPayload, JwtSign, Payload } from './auth.interface';
-import { User } from '../shared/user';
 
 @Injectable()
 export class AuthService {
@@ -13,7 +12,7 @@ export class AuthService {
     private config: ConfigService,
   ) {}
 
-  public async validateUser(): Promise<User | null> {
+  public async validateUser(): Promise<any> {
     // const user = await this.user.fetch();
 
     // if (user.password === password) {
