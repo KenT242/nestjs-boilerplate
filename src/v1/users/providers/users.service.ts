@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 
 import { Users } from '#entity/beramarket';
 import _ from 'lodash';
+import { RegistryUsersDto } from '../dto';
 
 @Injectable()
 export class UsersService {
@@ -13,5 +14,17 @@ export class UsersService {
   ) {}
   public async getUserById(userId: string): Promise<Users | null> {
     return this.usersTable.findOneBy({ id: _.toNumber(userId) });
+  }
+
+  public async registryUsers(user: RegistryUsersDto): Promise<Users> {
+    const { address } = user;
+    const existedUser = await this.usersTable.findOneBy({ address: _.toLower(address) });
+    if (existedUser) {
+      return existedUser;
+    }
+    return this.usersTable.save({
+      ...user,
+      address: _.toLower(address),
+    });
   }
 }

@@ -1,6 +1,8 @@
 import { Expose } from 'class-transformer';
+import { IsEnum, IsEthereumAddress, IsOptional, IsString } from 'class-validator';
+import { EChainName } from 'src/common/constants';
 
-export class UsersResponseDto {
+export class UsersDto {
 
   @Expose()
   public id!: number;
@@ -16,4 +18,20 @@ export class UsersResponseDto {
 
   @Expose()
   profilePicture?: string;
+}
+
+export class RegistryUsersDto {
+  @IsEthereumAddress()
+  public address!: string;
+
+  @IsEnum(EChainName)
+  public chainName!: EChainName;
+
+  @IsOptional()
+  @IsString()
+  public name?: string;
+
+  @IsOptional()
+  @IsString()
+  public profilePicture?: string;
 }

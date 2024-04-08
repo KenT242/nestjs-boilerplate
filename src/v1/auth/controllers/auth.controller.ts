@@ -42,6 +42,15 @@ export class AuthController {
     };
   }
 
+  @UseGuards(JwtAuthGuard)
+  @Get('check')
+  public jwtCheck(@ReqUser() user: Payload): ApiResponse<Payload> {
+    return {
+      data: user,
+      message: 'Authenticated',
+    };
+  }
+
   // NOTE: This is a test endpoint for signing a message.
   @Post('sign')
   public async testSignature(@Body() data: SignMessageDto): Promise<ApiResponse<{ signature: string }>> {
@@ -77,15 +86,6 @@ export class AuthController {
         address: _.get(verifiedPayload, 'address', ''),
         userId: _.toString(_.get(user, 'id', '')), // NOTE: This is a test value.
       }),
-    };
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @Get('check')
-  public jwtCheck(@ReqUser() user: Payload): ApiResponse<Payload> {
-    return {
-      data: user,
-      message: 'Authenticated',
     };
   }
 }

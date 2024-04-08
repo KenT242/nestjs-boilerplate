@@ -1,5 +1,4 @@
-import { Controller, Get, UseGuards, UseInterceptors } from '@nestjs/common';
-// import type { Request, Response } from 'express';
+import { Controller, Get, Post, Body, UseGuards, UseInterceptors } from '@nestjs/common';
 
 import {
   Payload,
@@ -8,7 +7,7 @@ import {
 import { ApiResponse, ReqUser, SerializeInterceptor } from '../../../common';
 import _ from 'lodash';
 import { UsersService } from '../providers';
-import { UsersResponseDto } from '../dto';
+import { RegistryUsersDto, UsersDto } from '../dto';
 
 /**
  * https://docs.nestjs.com/techniques/authentication
@@ -20,14 +19,24 @@ export class UsersController {
   ) {}
 
   @UseGuards(JwtAuthGuard)
-  @UseInterceptors(new SerializeInterceptor<UsersResponseDto>(UsersResponseDto))
+  @UseInterceptors(new SerializeInterceptor<UsersDto>(UsersDto))
   @Get('')
-  public async get(@ReqUser() payload: Payload): Promise<ApiResponse<UsersResponseDto | null>> {
+  public async get(@ReqUser() payload: Payload): Promise<ApiResponse<UsersDto | null>> {
     const { userId } = payload;
     const user = await this.userService.getUserById(userId);
     return {
       data: user,
       message: 'User data retrieved successfully',
+    };
+  }
+
+  @UseInterceptors(new SerializeInterceptor<UsersDto>(UsersDto))
+  @Post('register')
+  public async register(@Body() body: RegistryUsersDto): Promise<ApiResponse<UsersDto>> {
+    const user = await this.userService.registryUsers(body);
+    return {
+      data: user,
+      message: 'User created successfully',
     };
   }
 }
