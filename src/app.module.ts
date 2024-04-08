@@ -6,7 +6,6 @@ import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { LoggerModule } from 'nestjs-pino';
 
 import { AuthModule } from './auth';
-import { BaseModule } from './base';
 import { CommonModule, ExceptionsFilter, TransformResponseInterceptor } from './common';
 import { configuration, loggerOptions } from './config';
 import { V1Module } from './v1/v1.module';
@@ -40,7 +39,6 @@ import { V1Module } from './v1/v1.module';
     // Service Modules
     AuthModule, // Global for Middleware
     CommonModule, // Global
-    BaseModule,
     V1Module,
     // Module Router
     // https://docs.nestjs.com/recipes/router-module
