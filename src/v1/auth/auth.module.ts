@@ -12,15 +12,15 @@ import * as tables from '#entity/beramarket';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([
-      ...Object.values(tables)
-    ]),
+    TypeOrmModule.forFeature([...Object.values(tables)]),
     TerminusModule,
     HttpModule,
     JwtModule.registerAsync({
       useFactory: (config: ConfigService) => ({
         secret: config.get('jwtSecret'),
-        signOptions: { expiresIn: '30d' },
+        signOptions: {
+          expiresIn: 7 * 24 * 60 * 60, // NOTE: 7 days -> This is NextAuth config from the frontend
+        },
       }),
       inject: [ConfigService],
     }),
