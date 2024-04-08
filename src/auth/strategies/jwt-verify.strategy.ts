@@ -16,6 +16,6 @@ export class JwtVerifyStrategy extends PassportStrategy(Strategy, 'jwt-verify') 
   }
 
   public validate(payload: JwtPayload): Payload {
-    return { userId: payload.userId, address: payload.address};
+    return { address: payload.address };
   }
 }

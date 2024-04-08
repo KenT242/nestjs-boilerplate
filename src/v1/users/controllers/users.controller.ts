@@ -1,9 +1,6 @@
 import { Controller, Get, Post, Body, UseGuards, UseInterceptors } from '@nestjs/common';
 
-import {
-  Payload,
-  JwtAuthGuard,
-} from '../../../auth';
+import { Payload, JwtAuthGuard } from '../../../auth';
 import { ApiResponse, ReqUser, SerializeInterceptor } from '../../../common';
 import _ from 'lodash';
 import { UsersService } from '../providers';
@@ -14,9 +11,7 @@ import { RegistryUsersDto, UsersDto } from '../dto';
  */
 @Controller()
 export class UsersController {
-  constructor(
-    private userService: UsersService,
-  ) {}
+  constructor(private userService: UsersService) {}
 
   @UseGuards(JwtAuthGuard)
   @UseInterceptors(new SerializeInterceptor<UsersDto>(UsersDto))

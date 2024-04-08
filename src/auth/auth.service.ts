@@ -13,17 +13,10 @@ export class AuthService {
   ) {}
 
   public async validateUser(): Promise<any> {
-    // const user = await this.user.fetch();
-
-    // if (user.password === password) {
-    //   const { password: pass, ...result } = user;
-    //   return result;
-    // }
-
     return {
       id: 'test',
       address: 'address',
-    }
+    };
   }
 
   public validateRefreshToken(data: Payload, refreshToken: string): boolean {
@@ -32,11 +25,17 @@ export class AuthService {
     }
 
     const payload = this.jwt.decode<{ sub: string }>(refreshToken);
-    return payload.sub === data.userId;
+    return payload.sub === data.address;
   }
 
   public jwtSign(data: Payload): JwtSign {
-    const payload: JwtPayload = { address: data.address, userId: data.userId };
+    const payload: JwtPayload = {
+      sub: data.address,
+      address: data.address,
+      user: {
+        address: data.address,
+      },
+    };
 
     return {
       access_token: this.jwt.sign(payload),
@@ -51,7 +50,7 @@ export class AuthService {
         return null;
       }
 
-      return { userId: payload.userId, address: payload.address};
+      return { address: payload.address };
     } catch {
       // Unexpected token i in JSON at position XX
       return null;

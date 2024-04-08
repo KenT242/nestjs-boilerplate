@@ -3,16 +3,17 @@ export interface JwtSign {
   // refresh_token: string;
 }
 
+export interface IJwtUserPayload {
+  address: string;
+  ens?: string;
+}
+
 export interface JwtPayload {
-  // sub: string;
-  // username: string;
-  // roles: string[];
+  sub: string;
+  user: IJwtUserPayload;
   address: string;
 }
 
 export interface Payload {
-  // userId: string;
-  // username: string;
-  // roles: string[];
   address: string;
 }
