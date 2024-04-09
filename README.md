@@ -89,8 +89,6 @@ npm start
 |   |   +-- pipes // Nest Pipes
 |   |   +-- providers // Nest Providers
 |   |   +-- * // models, repositories, services...
-|   +-- shared // Shared Nest Modules
-|   +-- gql // GraphQL Structure
 |   +-- * // Other Nest Modules, non-global, same as common structure above
 +-- test // Jest testing
 +-- typings // Modules and global type definitions
@@ -122,14 +120,10 @@ You should choose the right architecture<sup>[[1]](https://romanglushach.medium.
 - [Authentication](src/auth) - JWT and Session login with Passport
 - [Role-based Guard](src/common/guards/roles.guard.ts)
 - Controller Routes
-  - [Auth Login](src/base/controllers/auth.controller.ts)
-  - [Sample](src/sample/controllers/sample.controller.ts) Parameter and [DTO](src/sample/dto/sample.dto.ts)
-  - [CRUD API](src/sample/controllers/crud.controller.ts) Sample
+  - [Auth Login](src/v1/auth/controllers/auth.controller.ts)
 - [Database Query](src/sample/providers/database.service.ts) Example
 - [Unit Test](src/sample/providers/crud.service.spec.ts)
 - [E2E Test](test/e2e)
-- [Shared Modules](src/shared) Example
-- [GraphQL Structure](src/gql) Example
 
 ## Documentation
 
@@ -189,12 +183,3 @@ interface ThirdCustomeUser extends CustomeUser {}
 
 > refer to [Naming cheatsheet](https://github.com/kettanaito/naming-cheatsheet)
 
-### Links
-
-- [Better Nodejs Project](https://github.com/CatsMiaow/better-nodejs-project)
-- [Monorepo with npm Workspaces](https://github.com/CatsMiaow/node-monorepo-workspaces)
-- [Nest Project Performance](https://github.com/CatsMiaow/nestjs-project-performance)
-- [NestJS](https://docs.nestjs.com)
-  - [Nest Sample](https://github.com/nestjs/nest/tree/master/sample)
-  - [Awesome Nest](https://github.com/nestjs/awesome-nestjs)
-- [TypeORM](https://typeorm.io)
